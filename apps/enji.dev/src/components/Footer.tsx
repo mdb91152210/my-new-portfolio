@@ -5,7 +5,7 @@ import {
   ExternalLink,
   FigmaIcon,
   GitHubIcon,
-  TwitterIcon,
+  LinkedInIcon,
 } from '@/components/Icons';
 
 import dayjs from '@/utils/dayjs';
@@ -118,14 +118,13 @@ function FooterDescription() {
       <ul className={clsx('-ml-2 flex gap-1')}>
         <li>
           <a
-            href="https://twitter.com/mdb91152210"
+            href="https://www.linkedin.com/in/mohamed-bilal-b2a8ba361"
             target="_blank"
-            rel="noreferrer nofollow"
-            className={clsx('flex h-9 w-9 items-center justify-center')}
-            aria-label="My Twitter profile"
-            title="My Twitter profile"
+            rel="noreferrer"
+            className="button button--soft"
           >
-            <TwitterIcon className={clsx('h-5 w-5')} />
+            <LinkedInIcon className="h-5 w-5" />
+            <span>LinkedIn</span>
           </a>
         </li>
         <li>
@@ -225,7 +224,7 @@ function Footer() {
                     },
                     {
                       title: 'Source Code',
-                      href: 'https://github.com/mdb91152210/enji.dev',
+                      href: 'https://github.com/mdb91152210/my-new-portfolio',
                       isInternal: false,
                     },
                     {
@@ -245,7 +244,7 @@ function Footer() {
           )}
         >
           <div className={clsx('font-semibold')}>
-            &copy; {dayjs().format('YYYY')}, Enji Kusnadi
+            &copy; {dayjs().format('YYYY')}, Mohamed Bilal
           </div>
           <div className={clsx('text-slate-500', 'dark:text-slate-400')}>
             <LastUpdate />

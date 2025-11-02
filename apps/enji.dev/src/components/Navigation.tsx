@@ -1,6 +1,6 @@
 import clsx from 'clsx';
 
-import { GitHubIcon, TwitterIcon } from '@/components/Icons';
+import { GitHubIcon, LinkedInIcon } from '@/components/Icons';
 import NavIcon from '@/components/navigations/NavIcon';
 import NavIconQuickAccess from '@/components/navigations/NavIconQuickAccess';
 import NavLink from '@/components/navigations/NavLink';
@@ -44,6 +44,7 @@ function Navbar() {
             'md:px-4'
           )}
         >
+          {/* Left Section - Logo and Links */}
           <nav className={clsx('flex', 'md:gap-2')} data-accent="violet">
             <NavLogo href="/" title="Home" />
             <ul className={clsx('flex items-center', 'md:gap-1')}>
@@ -64,14 +65,19 @@ function Navbar() {
               </li>
             </ul>
           </nav>
+
+          {/* Right Section - Icons */}
           <ul className={clsx('flex items-center')}>
+            {/* LinkedIn */}
             <li className={clsx('hidden', 'sm:block')}>
               <NavIcon
-                href="https://twitter.com/mdb91152210"
-                icon={<TwitterIcon className={clsx('h-5 w-5')} />}
-                title="Twitter"
+                href="https://www.linkedin.com/in/mohamed-bilal-b2a8ba361"
+                icon={<LinkedInIcon className={clsx('h-5 w-5')} />}
+                title="LinkedIn"
               />
             </li>
+
+            {/* GitHub */}
             <li className={clsx('hidden', 'sm:block')}>
               <NavIcon
                 href="https://github.com/mdb91152210"
@@ -79,6 +85,8 @@ function Navbar() {
                 title="GitHub"
               />
             </li>
+
+            {/* Divider */}
             <li className={clsx('hidden', 'sm:block')}>
               <div
                 className={clsx(
@@ -87,6 +95,8 @@ function Navbar() {
                 )}
               />
             </li>
+
+            {/* Quick Access Menu */}
             <li className={clsx('mr-2')}>
               <NavIconQuickAccess />
             </li>
