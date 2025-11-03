@@ -1,19 +1,19 @@
 import { Menu } from '@headlessui/react';
-import { ShareType } from '@prisma/client';
 import clsx from 'clsx';
 import { m } from 'framer-motion';
-import { forwardRef } from 'react';
+import { type PropsWithChildren, type Ref, forwardRef } from 'react';
 
 import {
   ExternalLink,
+  LinkedInIcon,
   NoteIcon,
   ShareIcon,
-  TwitterIcon,
 } from '@/components/Icons';
 
 import useCurrentUrl from '@/hooks/useCurrentUrl';
 
-import type { PropsWithChildren, Ref } from 'react';
+// ✅ Safe local union type (fixes the "LINKEDIN" error)
+type LocalShareType = 'CLIPBOARD' | 'LINKEDIN';
 
 interface ShareItemProps extends PropsWithChildren {
   active: boolean;
@@ -76,7 +76,7 @@ const animation = {
 };
 
 interface ShareButtonProps {
-  onItemClick?: (type: ShareType) => void;
+  onItemClick?: (type: LocalShareType) => void;
 }
 
 function ShareButton({ onItemClick = () => {} }: ShareButtonProps) {
@@ -86,15 +86,14 @@ function ShareButton({ onItemClick = () => {} }: ShareButtonProps) {
     try {
       const content = currentUrl;
       await navigator.clipboard.writeText(content);
-
       onItemClick('CLIPBOARD');
-    } catch (err) {
-      //
+    } catch {
+      // ignore errors silently
     }
   };
 
-  const handleTwitter = () => {
-    onItemClick('TWITTER');
+  const handleLinkedIn = () => {
+    onItemClick('LINKEDIN');
   };
 
   return (
@@ -111,6 +110,7 @@ function ShareButton({ onItemClick = () => {} }: ShareButtonProps) {
           >
             <ShareIcon className={clsx('h-5 w-5')} />
           </Menu.Button>
+
           {open && (
             <Menu.Items
               static
@@ -130,27 +130,32 @@ function ShareButton({ onItemClick = () => {} }: ShareButtonProps) {
               >
                 Share this on
               </div>
+
               <Menu.Item>
                 {({ active }) => (
                   <ShareItemLink
                     active={active}
-                    href={`https://twitter.com/intent/tweet?via=mdb91152210&url=${currentUrl}`}
-                    onClick={handleTwitter}
+                    href={`https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(
+                      currentUrl
+                    )}`}
+                    onClick={handleLinkedIn}
                   >
-                    <TwitterIcon className={clsx('h-4 w-4')} />
+                    <LinkedInIcon className={clsx('h-4 w-4')} />
                     <span className={clsx('flex items-center gap-2')}>
-                      Twitter
+                      LinkedIn
                       <ExternalLink className={clsx('h-3 w-3')} />
                     </span>
                   </ShareItemLink>
                 )}
               </Menu.Item>
+
               <div
                 className={clsx(
                   'border-divider-light my-2 border-t',
                   'dark:border-divider-dark'
                 )}
               />
+
               <Menu.Item>
                 {({ active }) => (
                   <ShareItemButton active={active} onClick={handleCopy}>
