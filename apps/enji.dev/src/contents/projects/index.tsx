@@ -1,82 +1,33 @@
-import clsx from 'clsx';
-import { useState } from 'react';
-
-import { GitHubIcon, NpmIcon } from '@/components/Icons';
-import { SectionButton } from '@/components/sections/SectionButton';
 import SectionContent from '@/components/sections/SectionContent';
 import SectionTitle from '@/components/sections/SectionTitle';
-import AppWindow from '@/components/wireframes/AppWindow';
-import GitHubWireframe from '@/components/wireframes/GitHub';
-import NpmWireframe from '@/components/wireframes/Npm';
+import Link from 'next/link';
 
 function ProjectsContents() {
-  const [currentState, setCurrentState] = useState<'npm' | 'github'>('github');
-
   return (
     <>
       <SectionTitle
         title="My Projects"
         caption="Showcase"
-        description="These are some of the works I have done."
+        description="Here are some of the projects I have worked on. Click to learn more."
       />
 
       <SectionContent>
-        <div className={clsx('flex', 'lg:gap-12')}>
-          <div className={clsx('hidden flex-1 flex-col gap-3 pt-8', 'lg:flex')}>
-            <div className={clsx('flex flex-col gap-3')}>
-              <SectionButton
-                title="Available on GitHub"
-                icon={<GitHubIcon className={clsx('my-2 h-16 w-16')} />}
-                description="Access powerful and flexible package on GitHub with MIT license."
-                active={currentState === 'github'}
-                onClick={() => setCurrentState('github')}
-              />
-              <SectionButton
-                title="npm package"
-                icon={<NpmIcon className={clsx('my-2 h-16 w-16')} />}
-                description="Install and use the package with ease thanks to its typed options."
-                active={currentState === 'npm'}
-                onClick={() => setCurrentState('npm')}
-              />
-            </div>
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
+          {/* Project 1 Card */}
+          <div className="rounded-xl border p-5 transition hover:bg-neutral-100 dark:hover:bg-neutral-800">
+            <h3 className="text-xl font-semibold">Online E-Voting System</h3>
+            <p className="mt-2 text-sm text-neutral-500">
+              A secure system where users can vote online using authentication.
+            </p>
+            <Link
+              href="/projects/online-e-voting"
+              className="mt-4 inline-block text-blue-600 hover:underline"
+            >
+              Learn More →
+            </Link>
           </div>
-          <div className={clsx('w-full', 'lg:w-auto')}>
-            <div className={clsx('-mt-[41px]')}>
-              <div className={clsx('w-full', 'lg:h-[400px] lg:w-[600px]')}>
-                <AppWindow
-                  type="browser"
-                  browserTabs={[
-                    {
-                      icon: <GitHubIcon className="h-4 w-4" />,
-                      title: 'mdb91152210/tailwindcss-accent - GitHub',
-                      isActive: currentState === 'github',
-                    },
-                    {
-                      icon: <NpmIcon className="h-4 w-4" />,
-                      title: 'tailwindcss-accent - npm',
-                      isActive: currentState === 'npm',
-                    },
-                  ]}
-                >
-                  {currentState === 'github' && (
-                    <GitHubWireframe
-                      author="mdb91152210"
-                      license="MIT"
-                      repository="tailwindcss-accent"
-                      description="Adds accent colors for more dynamic and flexible color utilization."
-                    />
-                  )}
-                  {currentState === 'npm' && (
-                    <NpmWireframe
-                      packageName="tailwindcss-accent"
-                      description="Adds accent colors for more dynamic and flexible color utilization."
-                      isWithTypeScript
-                    />
-                  )}
-                </AppWindow>
-              </div>
-            </div>
-          </div>
+
+          {/* Add more project cards below the same way */}
         </div>
       </SectionContent>
     </>
