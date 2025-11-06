@@ -1,36 +1,57 @@
-import SectionContent from '@/components/sections/SectionContent';
-import SectionTitle from '@/components/sections/SectionTitle';
+import Image from 'next/image';
 import Link from 'next/link';
 
 function ProjectsContents() {
+  const projects = [
+    {
+      title: 'Online E-Voting System',
+      description:
+        'Students can vote online securely using unique login accounts.',
+      image: '/projects/online-e-voting/online-e-voting.jpg',
+      link: '/projects/online-e-voting',
+    },
+  ];
+
   return (
-    <>
-      <SectionTitle
-        title="My Projects"
-        caption="Showcase"
-        description="Here are some of the projects I have worked on. Click to learn more."
-      />
+    <div className="space-y-12 py-10">
+      <h1 className="text-center text-3xl font-bold">My Projects</h1>
+      <p className="text-center text-gray-400">
+        Showcase of the work I have built.
+      </p>
 
-      <SectionContent>
-        <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-3">
-          {/* Project 1 Card */}
-          <div className="rounded-xl border p-5 transition hover:bg-neutral-100 dark:hover:bg-neutral-800">
-            <h3 className="text-xl font-semibold">Online E-Voting System</h3>
-            <p className="mt-2 text-sm text-neutral-500">
-              A secure system where users can vote online using authentication.
-            </p>
-            <Link
-              href="/projects/online-e-voting"
-              className="mt-4 inline-block text-blue-600 hover:underline"
-            >
-              Learn More →
-            </Link>
+      <div className="mx-auto grid max-w-5xl gap-8 md:grid-cols-2">
+        {projects.map((project) => (
+          <div
+            key={project.title}
+            className="overflow-hidden rounded-2xl border border-white/10 bg-gradient-to-br from-purple-600/20 to-blue-600/20 backdrop-blur transition hover:scale-[1.02]"
+          >
+            <div className="relative h-52 w-full">
+              <Image
+                src={project.image}
+                alt={project.title}
+                fill
+                className="object-cover"
+                priority
+              />
+            </div>
+
+            <div className="p-6">
+              <h2 className="text-xl font-semibold">{project.title}</h2>
+              <p className="mt-2 text-sm text-gray-300">
+                {project.description}
+              </p>
+
+              <Link
+                href={project.link}
+                className="mt-4 inline-block rounded-lg bg-gradient-to-r from-purple-500 to-blue-500 px-4 py-2 transition hover:opacity-90"
+              >
+                Learn More →
+              </Link>
+            </div>
           </div>
-
-          {/* Add more project cards below the same way */}
-        </div>
-      </SectionContent>
-    </>
+        ))}
+      </div>
+    </div>
   );
 }
 
