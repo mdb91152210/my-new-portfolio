@@ -10,6 +10,12 @@ function ProjectsContents() {
       image: '/projects/online-e-voting/online-e-voting.jpg',
       link: '/projects/online-e-voting',
     },
+    {
+      title: 'RPA Email Automation',
+      description: 'Automated email forwarding and scheduled event messages.',
+      image: '/projects/rpa-email-automation/rpa-email-automation.jpg',
+      link: '/projects/rpa-email-automation',
+    },
   ];
 
   return (
