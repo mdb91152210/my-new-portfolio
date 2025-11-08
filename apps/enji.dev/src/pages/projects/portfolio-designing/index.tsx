@@ -26,13 +26,13 @@ export default function PortfolioDesigningDetails() {
           </p>
 
           {/* Preview Image */}
-          <div className="relative mt-8 h-64 w-full overflow-hidden rounded-xl border border-white/10">
+          <div className="mt-8 flex w-full items-center justify-center">
             <Image
               src="/projects/portfolio-designing/portfolio-preview.jpg"
               alt="Portfolio Preview"
-              fill
-              className="object-cover"
-              priority
+              width={1200}
+              height={675}
+              className="w-full max-w-3xl rounded-xl border border-white/10 object-contain"
             />
           </div>
 
@@ -49,13 +49,13 @@ export default function PortfolioDesigningDetails() {
                 Awarded as <strong>Top Performer</strong> by{' '}
                 <strong>SpaceZee</strong>
                 for designing the best portfolio website during the MERN Stack
-                Training Program at MSEC. This achievement also included a
-                certificate and cash prize.
+                Training Program at MSEC. This achievement also included a cash
+                prize.
               </p>
 
               <div className="flex justify-center">
                 <Image
-                  src="/awards/spacezee-award.jpg"
+                  src="/awards/award.jpg"
                   alt="SpaceZee Award Ceremony"
                   width={900}
                   height={500}
