@@ -16,6 +16,13 @@ function ProjectsContents() {
       image: '/projects/rpa-email-automation/rpa-email-automation.jpg',
       link: '/projects/rpa-email-automation',
     },
+    {
+      title: 'Portfolio Designing Project',
+      description:
+        'Award-winning portfolio website designed during the SPACE ZEE MERN training program.',
+      image: '/projects/portfolio-designing/portfolio-preview.jpg',
+      link: '/projects/portfolio-designing',
+    },
   ];
 
   return (
