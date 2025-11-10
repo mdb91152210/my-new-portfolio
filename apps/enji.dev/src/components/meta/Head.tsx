@@ -38,15 +38,6 @@ function Head({
       <meta property="og:image:height" content="630" />
       <meta property="og:image:alt" content={`Image with "${title}" text.`} />
 
-      {/* twitter card */}
-      {/* <meta name="twitter:card" content="summary_large_image" />
-      <meta name="twitter:site" content="@mdb91152210" />
-      <meta name="twitter:creator" content="@mdb91152210" />
-      <meta name="twitter:title" content={title} />
-      <meta name="twitter:description" content={description} />
-      <meta name="twitter:image" content={ogImage} />
-      <meta name="twitter:image:alt" content={`Image with "${title}" text.`} /> */}
-
       {/* structured data */}
       {structuredData && (
         <script type="application/ld+json">{structuredData}</script>

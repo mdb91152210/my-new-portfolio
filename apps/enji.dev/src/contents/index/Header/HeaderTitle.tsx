@@ -14,7 +14,7 @@ function HeaderTitle() {
   const controls = useAnimationControls();
 
   return (
-    <div>
+    <div className="ml-[-40px] md:ml-[-60px]">
       <m.div
         className={clsx(
           'mb-1 flex items-center gap-1 text-2xl text-slate-600',
@@ -25,7 +25,7 @@ function HeaderTitle() {
         animate={animation.show}
         transition={{ delay: 0.1 }}
       >
-        hi!
+        Hi!
         <m.div
           initial={{
             opacity: 0,
@@ -69,10 +69,10 @@ function HeaderTitle() {
           transition={{ delay: 0.2 }}
         >
           I&apos;m{' '}
-          <strong className={clsx('text-accent-600', 'dark:text-accent-500')}>
+          <strong className={clsx('text-accent-300', 'dark:text-accent-500')}>
             Mohamed
           </strong>{' '}
-          Bilal K.S,{' '}
+          Bilal{' '}
         </m.span>
         <m.h1
           className={clsx(
