@@ -1,89 +1,89 @@
 import dayjs from '@/utils/dayjs';
+import relativeTime from 'dayjs/plugin/relativeTime';
 import { getBaseUrl, getParams } from '@/helpers/url';
 
 import type { TPostFrontMatter, TPostOgImage } from '@/types';
 
-export const formatDate = (date: string) => {
-  if (dayjs(date).isValid()) {
-    return dayjs(date, 'YYYY-MM-DD').format('MMMM D, YYYY');
-  }
+dayjs.extend(relativeTime);
 
+// ------------------------
+// Date formatting
+// ------------------------
+export const formatDate = (date: string): string => {
+  if (dayjs(date).isValid()) {
+    return dayjs(date).format('MMMM D, YYYY');
+  }
   return date;
 };
 
-export const formatDateRelative = (date: string) => {
+export const formatDateRelative = (date: string): string => {
   if (dayjs(date).isValid()) {
-    const days = dayjs().diff(date, 'days');
+    const diffDays = dayjs().diff(date, 'days');
 
-    if (days > 6) {
-      return formatDate(date);
-    }
-
-    if (days > 1) {
-      return `${days} days ago`;
-    }
-
-    if (days === 1) {
-      return `Yesterday`;
-    }
-
-    if (days === 0) {
-      return `Today`;
-    }
+    if (diffDays > 6) return formatDate(date);
+    if (diffDays > 1) return `${diffDays} days ago`;
+    if (diffDays === 1) return 'Yesterday';
+    if (diffDays === 0) return 'Today';
   }
-
   return date;
 };
 
-export const formatDateISO = (date: string) => {
+export const formatDateISO = (date: string): string => {
   if (dayjs(date).isValid()) {
-    return dayjs(date, 'YYYY-MM-DD').format();
+    return dayjs(date).toISOString();
   }
-
   return date;
 };
 
-export const formatLang = (lang: TPostFrontMatter['lang']) => {
-  switch (lang) {
-    case 'id':
-      return 'Bahasa Indonesia';
-    case 'en':
-      return 'English';
-    default:
-      return '';
-  }
+// ------------------------
+// Language formatting
+// ------------------------
+const LANG_MAP: Record<string, string> = {
+  id: 'Bahasa Indonesia',
+  en: 'English',
 };
 
+export const formatLang = (lang: TPostFrontMatter['lang']): string =>
+  LANG_MAP[lang] ?? '';
+
+// ------------------------
+// Number formatting
+// ------------------------
 export const formatNumber = (number: number): string => number.toLocaleString();
 
+// ------------------------
+// OG Image URLs
+// ------------------------
 export const getPostOgImageUrl = (data: TPostOgImage) => {
+  const aspectRatios = ['16/9', '4/3', '1/1'] as const;
+
   const getUrl = (aspectRatio?: TPostOgImage['aspectRatio']) => {
     const params = aspectRatio
       ? getParams({ ...data, aspectRatio })
       : getParams(data);
-
     return encodeURI(`${getBaseUrl()}/api/og-post?${params}`);
   };
 
-  return {
-    default: getUrl(),
-    '16/9': getUrl('16/9'),
-    '4/3': getUrl('4/3'),
-    '1/1': getUrl('1/1'),
-  };
+  const result: Record<string, string> = { default: getUrl() };
+  aspectRatios.forEach((ratio) => (result[ratio] = getUrl(ratio)));
+
+  return result;
 };
 
+// ------------------------
+// Structured Data for SEO
+// ------------------------
 export const getPostStructuredData = ({
   title,
-  dateModified,
-  datePublished,
   images,
+  datePublished,
+  dateModified,
 }: {
   title: string;
-  images: Array<string>;
+  images: string[];
   datePublished: string;
   dateModified: string;
-}) =>
+}): string =>
   JSON.stringify({
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -94,7 +94,7 @@ export const getPostStructuredData = ({
     author: [
       {
         '@type': 'Person',
-        name: 'Enji Kusnadi',
+        name: 'MOHAMED BILAL',
         jobTitle: 'Front-End Developer',
         url: 'https://www.enji.dev/about',
       },

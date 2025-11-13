@@ -7,9 +7,11 @@ datasource db {
   url      = env("DATABASE_URL")
 }
 
+// =========================
+// Content Metadata
+// =========================
 model ContentMeta {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
+  id        String     @id @map("_id") @db.ObjectId @default(auto())
   type      ContentType
   title     String
   slug      String     @unique
@@ -17,52 +19,63 @@ model ContentMeta {
   shares    Share[]
   reactions Reaction[]
   createdAt DateTime   @default(now())
+
+  @@index([createdAt])
 }
 
+// =========================
+// View Model
+// =========================
+model View {
+  id        String      @id @map("_id") @db.ObjectId @default(auto())
+  createdAt DateTime    @default(now())
+  sessionId String
+
+  contentId String      @db.ObjectId
+  content   ContentMeta @relation(fields: [contentId], references: [id], onDelete: Cascade)
+}
+
+// =========================
+// Share Model
+// =========================
+model Share {
+  id        String      @id @map("_id") @db.ObjectId @default(auto())
+  type      ShareType?  @default(OTHERS)
+  createdAt DateTime    @default(now())
+  sessionId String
+
+  contentId String      @db.ObjectId
+  content   ContentMeta @relation(fields: [contentId], references: [id], onDelete: Cascade)
+}
+
+// =========================
+// Reaction Model
+// =========================
+model Reaction {
+  id        String       @id @map("_id") @db.ObjectId @default(auto())
+  count     Int          @default(1)
+  section   String?
+  type      ReactionType @default(CLAPPING)
+  createdAt DateTime     @default(now())
+  sessionId String
+
+  contentId String      @db.ObjectId
+  content   ContentMeta @relation(fields: [contentId], references: [id], onDelete: Cascade)
+}
+
+// =========================
+// Enums
+// =========================
 enum ContentType {
   PAGE
   POST
   PROJECT
 }
 
-model View {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
-  createdAt DateTime @default(now())
-  sessionId String
-
-  contentId String      @db.ObjectId
-  content   ContentMeta @relation(fields: [contentId], references: [id], onDelete: Cascade)
-}
-
-model Share {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
-  type      ShareType? @default(OTHERS)
-  createdAt DateTime   @default(now())
-  sessionId String
-
-  contentId String      @db.ObjectId
-  content   ContentMeta @relation(fields: [contentId], references: [id], onDelete: Cascade)
-}
-
 enum ShareType {
   LINKEDIN
   CLIPBOARD
   OTHERS
-}
-
-model Reaction {
-  id String @id @default(auto()) @map("_id") @db.ObjectId
-
-  count     Int?          @default(1)
-  section   String?
-  type      ReactionType? @default(CLAPPING)
-  createdAt DateTime      @default(now())
-  sessionId String
-
-  contentId String      @db.ObjectId
-  content   ContentMeta @relation(fields: [contentId], references: [id], onDelete: Cascade)
 }
 
 enum ReactionType {
