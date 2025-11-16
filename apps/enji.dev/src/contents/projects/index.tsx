@@ -23,6 +23,15 @@ function ProjectsContents() {
       image: '/projects/portfolio-designing/portfolio-preview.jpg',
       link: '/projects/portfolio-designing',
     },
+    {
+      title: 'Landslide Prevention – Smart India Hackathon',
+      shortDescription:
+        'A machine learning-based system designed to predict and prevent landslides using real-time environmental data.',
+      image: '/projects/landslide-prevention.jpg',
+      tech: ['React', 'Node.js', 'MongoDB', 'Tailwind CSS'],
+      style: 1,
+      link: '/projects/landslide-prevention',
+    },
   ];
 
   return (
